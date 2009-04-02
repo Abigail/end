@@ -1,4 +1,4 @@
-End.pm
+lib/End.pm
 MANIFEST
 Makefile.PL
-test.pl
+t/000_tests.t
