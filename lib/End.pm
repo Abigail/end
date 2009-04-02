@@ -1,25 +1,17 @@
 package End;
 
-#
-# $Id: End.pm,v 1.2 2000/05/31 20:25:33 abigail Exp $
-#
-# $Log: End.pm,v $
-# Revision 1.2  2000/05/31 20:25:33  abigail
-# Added the license paragraph in the POD section.
-#
-# Revision 1.1  2000/05/31 19:35:01  abigail
-# Initial revision
-#
+use 5.006;
 
 use strict;
+use warnings;
+no  warnings 'syntax';
 
 use Exporter;
-use vars qw /@EXPORT @ISA $VERSION/;
 
-@ISA    = qw /Exporter/;
-@EXPORT = qw /end/;
+our @ISA     = qw /Exporter/;
+our @EXPORT  = qw /end/;
 
-($VERSION) = '$Revision: 1.2 $' =~ /([\d.]+)/;
+our $VERSION = '2009040201';
 
 sub end (&) {
     my    $code =  shift;
@@ -81,23 +73,18 @@ necessary. If the code fragment isn't wrapped in another code reference,
 the original subroutine will be blessed in the package, making that C<ref>
 on that code no longer returns the right value.
 
-=head1 REVISION HISTORY
+=head1 DEVELOPMENT
 
-    $Log: End.pm,v $
-    Revision 1.2  2000/05/31 20:25:33  abigail
-    Added the license paragraph in the POD section.
-
-    Revision 1.1  2000/05/31 19:35:01  abigail
-    Initial revision
-
+The current sources of this module are found on github,
+L<< git://github.com/Abigail/end.git >>.
 
 =head1 AUTHOR
 
-This package was written by Abigail, I<abigail@delanet.com>.
+This package was written by Abigail, L<< mailto:cpan@abigail.be >>
 
 =head1 COPYRIGHT & LICENSE
 
-This program is copyright 2000 by Abigail.
+Copyright (C) 2000 - 2009, Abigail
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
