@@ -11,7 +11,7 @@ use Exporter;
 our @ISA     = qw /Exporter/;
 our @EXPORT  = qw /end/;
 
-our $VERSION = '2009040201';
+our $VERSION = '2009081101';
 
 sub end (&) {
     my    $code =  shift;
