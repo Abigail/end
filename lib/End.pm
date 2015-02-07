@@ -11,16 +11,16 @@ use Exporter;
 our @ISA     = qw /Exporter/;
 our @EXPORT  = qw /end/;
 
-our $VERSION = '2009110401';
+our $VERSION = '2015020701';
 
 sub end (&) {
     my    $code =  shift;
-    # Due to a bug in Perl 5.6.0, we can't just bless $code.
-    # But by creating an extra closure, it'll work.
-    bless sub {$code -> ()} => __PACKAGE__;
+    bless { code => $code } => __PACKAGE__;
 }
 
-DESTROY {$_ [0] -> ()}
+sub clear { $_[0]->{'code'} = undef }
+
+DESTROY { $_[0]->{'code'}->() if $_[0]->{'code'} }
 
 1;
 
@@ -40,6 +40,13 @@ End - generalized END {}.
        ...
        last;    # prints "Leaving the block\n".
        ...
+    }
+
+    { my $bar = end {print "Leaving the second block\n"};
+      ...
+      $bar->clear;   # End block is no longer needed.  Turn it off.
+      last;          # nothing printed
+      ...
     }
 
 
@@ -62,6 +69,10 @@ C<end> only takes one argument, a code reference. If one wishes the code
 reference to take arguments, wrapping the code reference in a closure
 suffices.
 
+The object returned by C<end> provides a method disabling your end
+of block code.  Calling C<clear> on the returned C<end> object will
+wipe out the end block.
+
 =head1 BUGS
 
 Due to a bug in Perl 5.6.0 (and perhaps before), anonymous subroutines
@@ -77,6 +88,10 @@ on that code no longer returns the right value.
 
 The current sources of this module are found on github,
 L<< git://github.com/Abigail/end.git >>.
+
+=head1 SEE ALSO
+
+L<Manip::END>, L<Perl::AtEndOfScope>, L<B::Hooks::EndOfScope>.
 
 =head1 AUTHOR
 

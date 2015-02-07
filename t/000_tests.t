@@ -6,7 +6,7 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..3\n"; }
+BEGIN { $| = 1; print "1..4\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use End;
 $loaded = 1;
@@ -32,3 +32,11 @@ foreach my $i (1 .. 9) {
     next;
 }
 print $sum == 45 ? "ok 3\n" : "not ok 3\n";
+
+$sum = 0;
+foreach my $i (1 .. 9) {
+    my $foo = end {$sum += $i};
+    $foo->clear;
+    next;
+}
+print $sum == 0 ? "ok 4\n" : "not ok 4\n";
